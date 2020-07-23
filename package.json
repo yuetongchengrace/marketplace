@@ -1,0 +1,34 @@
+{
+  "name": "creativeproject-475337-457001",
+  "version": "1.0.0",
+  "description": "475337",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cse330-summer-2020/creativeproject-475337-457001.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cse330-summer-2020/creativeproject-475337-457001/issues"
+  },
+  "homepage": "https://github.com/cse330-summer-2020/creativeproject-475337-457001#readme",
+  "dependencies": {
+    "@vue/cli": "^4.4.6",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "joi": "^17.1.1",
+    "mongodb": "^3.5.9",
+    "monk": "^7.3.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
