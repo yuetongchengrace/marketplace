@@ -1,6 +1,6 @@
 <template>
 <div class = "container">
-  <h1>Latest Posts</h1>
+  <h1>My Posts</h1>
   <!--Create Posts here-->
   <hr>
   <p class="error" v-if="error">{{error}}</p>
@@ -12,7 +12,7 @@
       v-bind:key="post._id"
     >
       {{`${post.createdAt.getDate()}/${post.createdAt.getMonth()}/${post.createdAt.getFullYear()}`}}
-      <p class="text">{{ post.title }}</p>
+      <p class="text">{{ post.text }}</p>
     </div>
   </div>
 </div>
@@ -23,7 +23,7 @@
 import PostService from '../PostService';
 
 export default {
-  name: 'PostComponent',
+  name: 'MyPostComponent',
   data() {
     return {
       posts: [],
@@ -33,7 +33,7 @@ export default {
   },
   async created() {
     try {
-      this.posts = await PostService.getPosts();
+      this.posts = await PostService.getMyPosts();
     } catch (err) {
       this.error = err.message;
     }

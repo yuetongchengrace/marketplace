@@ -1,11 +1,19 @@
 const express = require('express');
 const mongodb = require('mongodb');
-
+const session = require('express-session');
 const router = express.Router();
 
 //Get posts
 router.get('/', async (req, res) => {
     const posts = await loadPostsCollection();
+    //res.send(req.session);
+    res.send(await posts.find({}).toArray());
+});
+
+//Get my posts
+router.get('/myposts', async (req, res) => {
+    const posts = await loadPostsCollection();
+    //let user =   use session
     res.send(await posts.find({}).toArray());
 });
 
@@ -13,7 +21,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     const posts = await loadPostsCollection();
     await posts.insertOne({
-        text: req.body.text,
+        title: req.body.text,
         createdAt: new Date()
     })
     res.status(201).send();

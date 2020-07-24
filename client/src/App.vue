@@ -1,18 +1,21 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <PostComponent />
+    <router-link to="ShowPosts" id="showallpostslink">Show All Posts</router-link>
+    <router-link to="AddPost" id="addpostlink">Add Post</router-link>
+    <router-link to="Orders">My Orders</router-link>
+    <router-view />
   </div>
 </template>
 
 <script>
-import PostComponent from './components/PostComponent.vue';
+// import PostComponent from './components/PostComponent.vue';
 
 export default {
   name: 'App',
-  components: {
-    PostComponent,
-  },
+  // components: {
+  //   PostComponent,
+  // },
 };
 </script>
 
@@ -23,6 +26,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top:60px;
+}
+#addpostlink, #showallpostslink{
+  margin-right:10px;
 }
 </style>

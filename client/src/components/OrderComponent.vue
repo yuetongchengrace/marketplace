@@ -1,18 +1,19 @@
 <template>
 <div class = "container">
-  <h1>Latest Posts</h1>
+  <h1>My orders</h1>
   <!--Create Posts here-->
   <hr>
   <p class="error" v-if="error">{{error}}</p>
   <div class="posts-container">
     <div class="post"
-      v-for="(post, index) in posts"
-      v-bind:item="post"
+      v-for="(order, index) in orders"
+      v-bind:item="order"
       v-bind:index="index"
-      v-bind:key="post._id"
+      v-bind:key="order._id"
     >
-      {{`${post.createdAt.getDate()}/${post.createdAt.getMonth()}/${post.createdAt.getFullYear()}`}}
-      <p class="text">{{ post.title }}</p>
+      <!-- {{`${order.createdAt.getDate()}/${order.createdAt.getMonth()}/
+      ${order.createdAt.getFullYear()}`}} -->
+      <p class="text">{{ order.title }}</p>
     </div>
   </div>
 </div>
@@ -20,20 +21,20 @@
 </template>
 
 <script>
-import PostService from '../PostService';
+import OrderService from '../OrderService';
 
 export default {
-  name: 'PostComponent',
+  name: 'OrderComponent',
   data() {
     return {
-      posts: [],
+      orders: [],
       error: '',
       text: '',
     };
   },
   async created() {
     try {
-      this.posts = await PostService.getPosts();
+      this.orders = await OrderService.getOrders();
     } catch (err) {
       this.error = err.message;
     }

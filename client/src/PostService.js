@@ -20,6 +20,25 @@ class PostService {
     });
   }
 
+  // Get My Posts
+  static getMyPosts() {
+    const url1 = 'http://localhost:4000/api/posts/myposts';
+    return new Promise((resolve, reject) => {
+      axios.get(url1).then((res) => {
+        const { data } = res;
+        resolve(
+          data.map((post) => ({
+            ...post,
+            createdAt: new Date(post.createdAt),
+          })),
+        );
+      })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  }
+
   // Create Post
   static insertPost(text) {
     return axios.post(url, {
