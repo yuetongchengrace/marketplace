@@ -29,7 +29,7 @@ export default {
   color: #2c3e50;
   margin-top:60px;
 }
-.addpostlink, .showallpostslink, .mypostslink{
+.addpostlink, .showallpostslink, .mypostslink, .orderlink{
   margin-right:10px;
 }
 </style>

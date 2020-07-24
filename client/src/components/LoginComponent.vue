@@ -31,6 +31,7 @@ export default {
         username: this.username,
         password: this.password,
       }).then((res) => {
+        window.localStorage.currentUser = JSON.stringify(this.username);
         console.log(res);
         window.location.href = 'http://localhost:8080/#/';
       })

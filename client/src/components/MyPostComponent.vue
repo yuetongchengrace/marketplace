@@ -3,7 +3,8 @@
     <router-link to="ShowPosts" class="showallpostslink">Show All Posts</router-link>
     <router-link to="AddPost" class="addpostlink">Add Post</router-link>
     <router-link to="MyPosts" class="mypostslink">My Posts</router-link>
-    <router-link to="Orders">My Orders</router-link>
+    <router-link to="Orders" class="orderlink">My Orders</router-link>
+    <router-link to="Logout">Logout</router-link>
     <router-view />
   <h1>My Posts</h1>
   <!--Create Posts here-->
@@ -17,7 +18,7 @@
       v-bind:key="post._id"
     >
       {{`${post.createdAt.getDate()}/${post.createdAt.getMonth()}/${post.createdAt.getFullYear()}`}}
-      <p class="text">{{ post.text }}</p>
+      <p class="text">{{ post.title }}</p>
     </div>
   </div>
 </div>

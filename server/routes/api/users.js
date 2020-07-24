@@ -3,9 +3,20 @@ const mongodb = require('mongodb');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const router = express.Router();
-
+const app=express();
+// app.use(session({
+//     secret: "secret",
+//     resave: true,
+//     saveUninitialized: true
+// }));
+router.use(session({
+    secret: "secret",
+    resave: true,
+    saveUninitialized: true
+}));
+//let current_user='visitor';
 //Get user
-router.post('/login', async (req, res) => {
+router.post('/login',async (req, res) => {
     const users = await loadPostsCollection();
     //let query = { username: req.body.username };
     let theUser = await users.findOne({username: req.body.username});
@@ -13,6 +24,8 @@ router.post('/login', async (req, res) => {
         if(bcrypt.compareSync(req.body.password, theUser.password)){
             req.session.username = req.body.username;
             res.status(200).send(theUser);
+            //res.status(200).send(req.session);
+            current_user=req.body.username;
             // res.status(200).send(theUser.toJSON())
             //res.redirect(302, 'http://localhost:8080/#/');
         }
@@ -30,7 +43,10 @@ router.post('/login', async (req, res) => {
         });
     }
 });
-
+//getcurrentuser
+router.get('/currentUser' ,async (req,res)=>{
+    res.send({'username': req.session});
+});
 //Add user
 router.post('/register', async (req, res) => {
     // const userData={

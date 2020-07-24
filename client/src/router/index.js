@@ -6,6 +6,7 @@ import OrderComponent from '@/components/OrderComponent.vue';
 import LoginComponent from '@/components/LoginComponent.vue';
 import SignupComponent from '@/components/SignupComponent.vue';
 import MyPostComponent from '@/components/MyPostComponent.vue';
+import LogoutComponent from '@/components/LogoutComponent.vue';
 
 Vue.use(Router);
 
@@ -45,6 +46,11 @@ export default new Router({
       path: '/signup',
       name: 'Signup',
       component: SignupComponent,
+    },
+    {
+      path: '/logout',
+      name: 'Logout',
+      component: LogoutComponent,
     },
   ],
 });

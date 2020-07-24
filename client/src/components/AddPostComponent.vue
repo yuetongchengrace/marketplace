@@ -3,7 +3,8 @@
     <router-link to="ShowPosts" class="showallpostslink">Show All Posts</router-link>
     <router-link to="AddPost" class="addpostlink">Add Post</router-link>
     <router-link to="MyPosts" class="mypostslink">My Posts</router-link>
-    <router-link to="Orders">My Orders</router-link>
+    <router-link to="Orders" class="orderlink">My Orders</router-link>
+    <router-link to="Logout">Logout</router-link>
     <router-view />
   <div class="create-post">
       <label for="create-post">Sell Something...</label>
@@ -27,7 +28,14 @@ export default {
   },
   methods: {
     async createPost() {
-      await PostService.insertPost(this.text);
+      try {
+        await PostService.insertPost(this.text);
+        console.log('added!');
+      } catch (err) {
+        this.error = err.message;
+        console.log(err.message);
+      }
+      // await PostService.insertPost(this.text);
     },
   },
 //   async created() {
