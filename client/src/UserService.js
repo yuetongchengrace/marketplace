@@ -2,22 +2,20 @@ import axios from 'axios';
 
 const url = 'http://localhost:4000/api/users/';
 class UserService {
-  // Get Users
-  static getUsers() {
-    return new Promise((resolve, reject) => {
-      axios.get(`${url}login`).then((res) => {
-        const { data } = res;
-        resolve(
-          data.map((user) => ({
-            ...user,
-          })),
-        );
-      })
-        .catch((err) => {
-          reject(err);
-        });
-    });
-  }
+  // Login
+  // static getUsers(data) {
+  //   return new Promise((resolve, reject) => {
+  //     axios.post(`${url}login`, {
+  //       username: data.username,
+  //       password: data.password,
+  //     }).then((res) => {
+  //       console.log(res);
+  //     })
+  //       .catch((err) => {
+  //         reject(err);
+  //       });
+  //   });
+  // }
 
   // Create User
   // text?

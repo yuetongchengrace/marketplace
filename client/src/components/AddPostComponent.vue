@@ -1,5 +1,10 @@
 <template>
 <div class = "container">
+    <router-link to="ShowPosts" class="showallpostslink">Show All Posts</router-link>
+    <router-link to="AddPost" class="addpostlink">Add Post</router-link>
+    <router-link to="MyPosts" class="mypostslink">My Posts</router-link>
+    <router-link to="Orders">My Orders</router-link>
+    <router-view />
   <div class="create-post">
       <label for="create-post">Sell Something...</label>
       <input type="text" id="create-post" v-model="text" placeholder="Sell an item">

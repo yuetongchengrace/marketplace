@@ -1,9 +1,10 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <router-link to="ShowPosts" id="showallpostslink">Show All Posts</router-link>
+    <!--<router-link to="ShowPosts" id="showallpostslink">Show All Posts</router-link>
     <router-link to="AddPost" id="addpostlink">Add Post</router-link>
     <router-link to="Orders">My Orders</router-link>
+    <router-view />-->
     <router-view />
   </div>
 </template>
@@ -28,7 +29,7 @@ export default {
   color: #2c3e50;
   margin-top:60px;
 }
-#addpostlink, #showallpostslink{
+.addpostlink, .showallpostslink, .mypostslink{
   margin-right:10px;
 }
 </style>

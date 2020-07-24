@@ -12,15 +12,22 @@ router.post('/login', async (req, res) => {
     if(theUser != null){
         if(bcrypt.compareSync(req.body.password, theUser.password)){
             req.session.username = req.body.username;
-            res.send(req.session);
+            res.status(200).send(theUser);
+            // res.status(200).send(theUser.toJSON())
             //res.redirect(302, 'http://localhost:8080/#/');
         }
         else{
-            res.status(404).send();
+            //res.status(404).send();
+            res.status(404).send({
+                error:'Password does not match'
+            });
         }
     }
     else{
-        res.status(404).send();
+        //res.status(404).send();
+        res.status(404).send({
+            error:'User does not exist'
+        });
     }
 });
 

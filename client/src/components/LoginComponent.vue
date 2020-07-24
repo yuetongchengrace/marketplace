@@ -1,30 +1,64 @@
 <template>
 <div class = "container">
+  <router-link to="Signup">Click to signup</router-link>
+  <router-view />
   <div class="create-post">
-      <label for="create-post">Sell Something...</label>
-      <input type="text" id="create-post" v-model="text" placeholder="Sell an item">
-      <button v-on:click="createPost">Post</button>
+      <input type="text" id="login-username" v-model="username" placeholder="username">
+      <input type="password" id="login-password" v-model="password">
+      <button v-on:click="login">Login</button>
+
   </div>
 </div>
 
 </template>
 
 <script>
-import PostService from '../PostService';
+// import UserService from '../UserService';
+import axios from 'axios';
 
 export default {
-  name: 'AddPostComponent',
+  name: 'LoginComponent',
   data() {
     return {
       error: '',
-      text: '',
+      username: '',
+      password: '',
     };
   },
   methods: {
-    async createPost() {
-      await PostService.insertPost(this.text);
+    login() {
+      axios.post('http://localhost:4000/api/users/login', {
+        username: this.username,
+        password: this.password,
+      }).then((res) => {
+        console.log(res);
+        window.location.href = 'http://localhost:8080/#/';
+      })
+        .catch((err) => {
+          console.log(err);
+        });
+      // try {
+      //   const check = UserService.getUsers({
+      //     username: this.username,
+      //     password: this.password,
+      //   });
+      //   check.then((res) => {
+      //     console.log(res);
+      //   })
+      //     .catch((err) => {
+      //       console.log(err);
+      //     });
+      // } catch (error) {
+      //   this.error = error.response.data.error;
+      // }
     },
   },
+};
+// async login() {
+//   const data = { username: this.username, password: this.password };
+//   await UserService.getUsers(data);
+// },
+
 //   async created() {
 //     try {
 //       this.posts = await PostsService.getPosts();
@@ -32,7 +66,7 @@ export default {
 //       this.error = err.message;
 //     }
 //   },
-};
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
