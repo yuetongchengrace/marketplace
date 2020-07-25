@@ -88,6 +88,18 @@ class PostService {
   static deletePost(id) {
     return axios.delete(`${url}${id}`);
   }
+
+  // Modify Post
+  static modifyPost(id, obj) {
+    return axios.post(`${url}${id}`, {
+      username: obj.username,
+      title: obj.title,
+      description: obj.description,
+      price: obj.price,
+      // picture:req.file.path,
+      // picture: req.body.picture,
+    });
+  }
 }
 
 export default PostService;

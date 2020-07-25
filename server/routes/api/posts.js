@@ -75,6 +75,22 @@ router.delete('/:id', async (req, res) => {
     res.status(200).send();
 })
 
+//Modify post
+router.post('/:id', async (req, res) => {
+  const posts = await loadPostsCollection();
+  await posts.update({_id: new mongodb.ObjectID(req.params.id)},
+    {username: req.body.username,
+    title: req.body.title,
+    description: req.body.description,
+    price: parseFloat(req.body.price),
+    //picture:req.file.path,
+    //picture: req.body.picture,
+    sold: 0,
+    createdAt: new Date()
+    })
+  res.status(200).send(posts.findOne({_id: new mongodb.ObjectID(req.params.id)}));
+})
+
 async function loadPostsCollection() {
     const client = await mongodb.MongoClient.connect
     ('mongodb+srv://wustl_inst:wustl_pass@cluster0.2qhat.mongodb.net/marketplace?retryWrites=true&w=majority', {

@@ -60,7 +60,9 @@ export default {
         console.log(err);
       });
     try {
-      this.orders = await OrderService.getOrders();
+      const obj = { username: this.username };
+      this.orders = await OrderService.getOrders(obj);
+      console.log(this.username);
     } catch (err) {
       this.error = err.message;
     }

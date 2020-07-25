@@ -27,10 +27,11 @@
       <span class="my-post-description">description: {{ post.description }}</span>
       <span v-if="!post.sold">Not sold yet</span>
       <span v-if="post.sold">sold</span>
-      <b-button size="sm"  class="modify-button">Modify</b-button>
+      <b-button size="sm"  class="modify-button"
+      @click="modify(post._id)">Modify</b-button>
       <!--<button class="modify-button">Modify</button>-->
       <b-button size="sm" class="my-post-delete-button"
-      v-on:click="deletePost(post._id)">Delete</b-button>
+      @click="deletePost(post._id)">Delete</b-button>
       <!--<button class="my-post-delete-button" v-on:click="deletePost(post._id)">Delete</button>-->
     </div>
   </div>
@@ -67,6 +68,9 @@ export default {
       } catch (err) {
         this.error = err.message;
       }
+    },
+    async modify(id) {
+      this.$router.push({ name: 'Modifypost', params: { id } });
     },
   },
   async created() {

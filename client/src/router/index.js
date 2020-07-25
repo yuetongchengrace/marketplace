@@ -8,6 +8,7 @@ import SignupComponent from '@/components/SignupComponent.vue';
 import MyPostComponent from '@/components/MyPostComponent.vue';
 import LogoutComponent from '@/components/LogoutComponent.vue';
 import ItemComponent from '@/components/ItemComponent.vue';
+import ModifyPostComponent from '@/components/ModifyPostComponent.vue';
 
 Vue.use(Router);
 
@@ -60,6 +61,11 @@ export default new Router({
     {
       path: '/:id',
       component: ItemComponent,
+    },
+    {
+      path: '/MyPosts/:id',
+      name: 'Modifypost',
+      component: ModifyPostComponent,
     },
   ],
 });
