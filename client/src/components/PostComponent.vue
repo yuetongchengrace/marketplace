@@ -8,21 +8,30 @@
     <router-link to="Login" v-if="!username">Login</router-link>
     <router-view />
     <span v-if="username">Balance: {{ balance }}</span>
-  <h1>Latest Posts</h1>
-  <!--Create Posts here-->
+  <h1>All Items</h1>
   <hr>
-  <p class="error" v-if="error">{{error}}</p>
-  <div class="posts-container">
-    <div class="post"
-      v-for="(post, index) in posts"
-      v-bind:item="post"
-      v-bind:index="index"
-      v-bind:key="post._id"
-    >
-      {{`${post.createdAt.getDate()}/${post.createdAt.getMonth()}/${post.createdAt.getFullYear()}`}}
-      <p class="text">{{ post.title }}</p>
-    </div>
-  </div>
+  <p class="error" v-if="error">{{error}}</p >
+  <b-container>
+    <b-row >
+      <b-col class="post" md="3"
+        v-for="(post, index) in posts"
+        v-bind:item="post"
+        v-bind:index="index"
+        v-bind:key="post._id"
+      >
+        <b-card class="mb-5"
+        img-src="http://classes.engineering.wustl.edu/cse330/content/brookings.jpg"
+        v-bind:title="post.title">
+          <b-card-text v-if="post.sold===1">sold</b-card-text>
+          <b-button size="sm" v-else variant="dark" @click="navigate(post._id)">See more</b-button>
+          <b-card-text>Price:{{ post.price }}</b-card-text>
+        </b-card>
+        <!-- {{`${post.createdAt.getDate()}/${post.createdAt.getMonth()}/
+        ${post.createdAt.getFullYear()}`}} -->
+
+      </b-col>
+    </b-row>
+  </b-container>
 </div>
 
 </template>
@@ -47,16 +56,13 @@ export default {
       this.username = localStorage.getItem('currentUser');
       console.log(localStorage.getItem('currentUser'));
     },
+    navigate(id) {
+      // console.log(window.location.pathname);
+      window.location.href = `http://localhost:8080/#/${id}`;
+    },
   },
   async created() {
     this.getUser();
-    // axios.get('http://localhost:4000/api/users/currentUser', {
-    // }).then((res) => {
-    //   console.log(res.data);
-    // })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
     axios.post('http://localhost:4000/api/users/balance', {
       username: this.username,
     }).then((res) => {
@@ -66,6 +72,7 @@ export default {
         console.log(err);
       });
     try {
+      console.log('hi');
       this.posts = await PostService.getPosts();
     } catch (err) {
       this.error = err.message;
