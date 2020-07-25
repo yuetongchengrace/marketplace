@@ -4,8 +4,10 @@
     <router-link to="AddPost" class="addpostlink">Add Post</router-link>
     <router-link to="MyPosts" class="mypostslink">My Posts</router-link>
     <router-link to="Orders" class="orderlink">My Orders</router-link>
-    <router-link to="Logout">Logout</router-link>
+    <router-link to="Logout" v-if="username">Logout</router-link>
+    <router-link to="Login" v-if="!username">Login</router-link>
     <router-view />
+    <span v-if="username">Balance: {{ balance }}</span>
   <h1>My orders</h1>
   <!--Create Posts here-->
   <hr>
@@ -27,18 +29,36 @@
 </template>
 
 <script>
+import axios from 'axios';
 import OrderService from '../OrderService';
 
 export default {
   name: 'OrderComponent',
   data() {
     return {
+      username: '',
+      balance: '',
       orders: [],
       error: '',
       text: '',
     };
   },
+  methods: {
+    getUser() {
+      this.username = localStorage.getItem('currentUser');
+      console.log(localStorage.getItem('currentUser'));
+    },
+  },
   async created() {
+    this.getUser();
+    axios.post('http://localhost:4000/api/users/balance', {
+      username: this.username,
+    }).then((res) => {
+      this.balance = res.data.balance;
+    })
+      .catch((err) => {
+        console.log(err);
+      });
     try {
       this.orders = await OrderService.getOrders();
     } catch (err) {

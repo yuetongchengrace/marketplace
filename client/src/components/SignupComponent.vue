@@ -1,11 +1,15 @@
 <template>
 <div class = "container">
- <router-link to="Login">Click to login</router-link>
-<router-view />
-  <div class="create-post">
+  <div class="create-post" id="sign-up-container">
+      <label for="signup-username">Username: </label>
       <input type="text" id="signup-username" v-model="username" placeholder="username">
+      <label for="signup-password">Password: </label>
       <input type="password" id="signup-password" v-model="password">
       <button v-on:click="signup">Sign Up</button>
+      <div id="link-to-login">
+        <router-link to="Login">Click to login</router-link>
+        <router-view />
+      </div>
   </div>
 </div>
 
@@ -61,5 +65,26 @@ li {
 }
 a {
   color: #42b983;
+}
+button{
+  font-size:20px;
+}
+#sign-up-container{
+  margin-top:150px;
+  font-size:30px;
+}
+#signup-username{
+  height:30px;
+  width:150px;
+  margin-right:10px;
+
+}
+#signup-password{
+  width:150px;
+  height:30px;
+  margin-right:30px;
+}
+#link-to-login{
+  margin-top:50px;
 }
 </style>

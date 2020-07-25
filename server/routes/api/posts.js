@@ -1,7 +1,33 @@
 const express = require('express');
 const mongodb = require('mongodb');
-const session = require('express-session');
 const router = express.Router();
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+      cb(null, './uploads/');
+    },
+    filename: function(req, file, cb) {
+      cb(null, file.originalname);
+    }
+  });
+  
+  const fileFilter = (req, file, cb) => {
+    // reject a file
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+      cb(null, true);
+    } else {
+      cb(null, false);
+    }
+  };
+  
+  const upload = multer({
+    storage: storage,
+    limits: {
+      fileSize: 1024 * 1024 * 20
+    },
+    fileFilter: fileFilter
+  });
+//const binary = mongodb.binary;
 
 //Get posts
 router.get('/', async (req, res) => {
@@ -10,18 +36,33 @@ router.get('/', async (req, res) => {
     res.send(await posts.find({}).toArray());
 });
 
-//Get my posts
-router.get('/myposts', async (req, res) => {
+//Get one post
+router.get('/:id', async (req, res) => {
     const posts = await loadPostsCollection();
-    //let user =   use session
-    res.send(await posts.find({}).toArray());
+    const thePost = await posts.findOne({_id: new mongodb.ObjectID(req.params.id)});
+    res.send(thePost);
+});
+
+//Get my posts
+router.post('/myposts', async (req, res) => {
+    const posts = await loadPostsCollection();
+    const user= req.body.username;
+    //console.log(user);
+    res.send(await posts.find({username: user}).toArray());
 });
 
 //Add post
-router.post('/', async (req, res) => {
+router.post('/', upload.single('productImage'),async (req, res) => {
+    //console.log(req.file)
     const posts = await loadPostsCollection();
     await posts.insertOne({
-        title: req.body.text,
+        username: req.body.username,
+        title: req.body.title,
+        description: req.body.description,
+        price: parseFloat(req.body.price),
+        picture:req.file.path,
+        //picture: req.body.picture,
+        sold: 0,
         createdAt: new Date()
     })
     res.status(201).send();

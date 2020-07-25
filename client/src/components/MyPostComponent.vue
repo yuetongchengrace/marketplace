@@ -4,21 +4,31 @@
     <router-link to="AddPost" class="addpostlink">Add Post</router-link>
     <router-link to="MyPosts" class="mypostslink">My Posts</router-link>
     <router-link to="Orders" class="orderlink">My Orders</router-link>
-    <router-link to="Logout">Logout</router-link>
+    <router-link to="Logout" v-if="username">Logout</router-link>
+    <router-link to="Login" v-if="!username">Login</router-link>
     <router-view />
+    <span v-if="username">Balance: {{ balance }}</span>
   <h1>My Posts</h1>
   <!--Create Posts here-->
   <hr>
   <p class="error" v-if="error">{{error}}</p>
-  <div class="posts-container">
+  <div class="posts-container" id="my-post-container">
     <div class="post"
       v-for="(post, index) in posts"
       v-bind:item="post"
       v-bind:index="index"
       v-bind:key="post._id"
     >
-      {{`${post.createdAt.getDate()}/${post.createdAt.getMonth()}/${post.createdAt.getFullYear()}`}}
-      <p class="text">{{ post.title }}</p>
+      <!--{{`${post.createdAt.getDate()}/${post.createdAt.getMonth()}
+      /${post.createdAt.getFullYear()}`}}-->
+      <span>{{index+1}}</span>
+      <span>: </span>
+      <span>title: {{ post.title }}</span>
+      <span class="my-post-description">description: {{ post.description }}</span>
+      <span v-if="!post.sold">Not sold yet</span>
+      <span v-if="post.sold">sold</span>
+      <button class="modify-button">Modify</button>
+      <button class="my-post-delete-button" v-on:click="deletePost(post._id)">Delete</button>
     </div>
   </div>
 </div>
@@ -26,20 +36,51 @@
 </template>
 
 <script>
+import axios from 'axios';
 import PostService from '../PostService';
 
 export default {
   name: 'MyPostComponent',
   data() {
     return {
+      balance: '',
+      username: '',
       posts: [],
       error: '',
       text: '',
     };
   },
+  methods: {
+    getUser() {
+      this.username = localStorage.getItem('currentUser');
+      console.log(localStorage.getItem('currentUser'));
+    },
+    async deletePost(id) {
+      console.log(id);
+      try {
+        await PostService.deletePost(id);
+        const obj2 = { username: this.username };
+        this.posts = await PostService.getMyPosts(obj2);
+      } catch (err) {
+        this.error = err.message;
+      }
+    },
+  },
   async created() {
+    this.getUser();
+    axios.post('http://localhost:4000/api/users/balance', {
+      username: this.username,
+    }).then((res) => {
+      this.balance = res.data.balance;
+    })
+      .catch((err) => {
+        console.log(err);
+      });
     try {
-      this.posts = await PostService.getMyPosts();
+      const obj = { username: this.username };
+      this.posts = await PostService.getMyPosts(obj);
+      console.log(this.posts);
+      console.log(obj);
     } catch (err) {
       this.error = err.message;
     }
@@ -62,5 +103,28 @@ li {
 }
 a {
   color: #42b983;
+}
+#my-post-container{
+  width:900px;
+  margin-left:auto;
+  margin-right:auto;
+  text-align:left;
+}
+.post{
+  line-height:50px;
+}
+.my-post-description{
+  margin-left:50px;
+  margin-right:70px;
+}
+.my-post-delete-button{
+  float:right;
+  margin-right:20px;
+  margin-top:15px;
+}
+.modify-button{
+  float:right;
+  margin-right:20px;
+  margin-top:15px;
 }
 </style>

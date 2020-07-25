@@ -1,12 +1,17 @@
 <template>
 <div class = "container">
-  <router-link to="Signup">Click to signup</router-link>
-  <router-view />
-  <div class="create-post">
-      <input type="text" id="login-username" v-model="username" placeholder="username">
+  <div class="create-post" id="login-container">
+      <label for="login-username">Username: </label>
+      <input type="text" id="login-username" v-model='username' placeholder="username">
+      <label for="login-password">Password: </label>
       <input type="password" id="login-password" v-model="password">
       <button v-on:click="login">Login</button>
-
+      <div id="link-to-signup">
+        <router-link to="Signup">Click to signup</router-link>
+        <br>
+        <router-link to="ShowPosts">Visit site</router-link>
+        <router-view />
+      </div>
   </div>
 </div>
 
@@ -27,17 +32,25 @@ export default {
   },
   methods: {
     login() {
-      axios.post('http://localhost:4000/api/users/login', {
-        username: this.username,
-        password: this.password,
-      }).then((res) => {
-        window.localStorage.currentUser = JSON.stringify(this.username);
-        console.log(res);
-        window.location.href = 'http://localhost:8080/#/';
-      })
-        .catch((err) => {
-          console.log(err);
-        });
+      if (this.username === '' || this.password === '') {
+        alert('Username or password is empty');
+      } else {
+        axios.post('http://localhost:4000/api/users/login', {
+          username: this.username,
+          password: this.password,
+        }).then((res) => {
+          console.log(this.username);
+          window.localStorage.currentUser = this.username;
+          // console.log(localStorage.getItem('currentUser'));
+          console.log(res);
+          console.log(res.status);
+          window.location.href = 'http://localhost:8080/#/';
+        })
+          .catch((err) => {
+            alert('Wrong username or password');
+            console.log(err);
+          });
+      }
       // try {
       //   const check = UserService.getUsers({
       //     username: this.username,
@@ -85,5 +98,26 @@ li {
 }
 a {
   color: #42b983;
+}
+button{
+  font-size:20px;
+}
+#login-container{
+  margin-top:150px;
+  font-size:30px;
+}
+#login-username{
+  height:30px;
+  width:150px;
+  margin-right:10px;
+
+}
+#login-password{
+  width:150px;
+  height:30px;
+  margin-right:30px;
+}
+#link-to-signup{
+  margin-top:50px;
 }
 </style>

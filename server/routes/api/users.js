@@ -43,6 +43,14 @@ router.post('/login',async (req, res) => {
         });
     }
 });
+//get user balance
+router.post('/balance' ,async (req,res)=>{
+    //username= req.body.username;
+    const users = await loadPostsCollection();
+    let user = await users.findOne({username: req.body.username});
+    console.log(user.balance);
+    res.send({'balance': user.balance});
+})
 //getcurrentuser
 router.get('/currentUser' ,async (req,res)=>{
     res.send({'username': req.session});
