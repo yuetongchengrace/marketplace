@@ -7,6 +7,7 @@ import LoginComponent from '@/components/LoginComponent.vue';
 import SignupComponent from '@/components/SignupComponent.vue';
 import MyPostComponent from '@/components/MyPostComponent.vue';
 import LogoutComponent from '@/components/LogoutComponent.vue';
+import ItemComponent from '@/components/ItemComponent.vue';
 
 Vue.use(Router);
 
@@ -51,6 +52,14 @@ export default new Router({
       path: '/logout',
       name: 'Logout',
       component: LogoutComponent,
+    },
+    {
+      path: '/showposts/:id',
+      component: ItemComponent,
+    },
+    {
+      path: '/:id',
+      component: ItemComponent,
     },
   ],
 });
