@@ -27,10 +27,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top:60px;
+  margin-top:20px;
   font-size:20px;
 }
-.addpostlink, .showallpostslink, .mypostslink, .orderlink{
+.addpostlink, .showallpostslink, .mypostslink, .orderlink, .logoutlink{
   margin-right:10px;
 }
 </style>

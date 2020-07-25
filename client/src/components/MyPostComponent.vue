@@ -4,8 +4,8 @@
     <router-link to="AddPost" class="addpostlink">Add Post</router-link>
     <router-link to="MyPosts" class="mypostslink">My Posts</router-link>
     <router-link to="Orders" class="orderlink">My Orders</router-link>
-    <router-link to="Logout" v-if="username">Logout</router-link>
-    <router-link to="Login" v-if="!username">Login</router-link>
+    <router-link to="Logout" class="logoutlink" v-if="username">Logout</router-link>
+    <router-link to="Login" class="logoutlink" v-if="!username">Login</router-link>
     <router-view />
     <span v-if="username">Balance: {{ balance }}</span>
   <h1>My Posts</h1>
@@ -27,8 +27,11 @@
       <span class="my-post-description">description: {{ post.description }}</span>
       <span v-if="!post.sold">Not sold yet</span>
       <span v-if="post.sold">sold</span>
-      <button class="modify-button">Modify</button>
-      <button class="my-post-delete-button" v-on:click="deletePost(post._id)">Delete</button>
+      <b-button size="sm"  class="modify-button">Modify</b-button>
+      <!--<button class="modify-button">Modify</button>-->
+      <b-button size="sm" class="my-post-delete-button"
+      v-on:click="deletePost(post._id)">Delete</b-button>
+      <!--<button class="my-post-delete-button" v-on:click="deletePost(post._id)">Delete</button>-->
     </div>
   </div>
 </div>
@@ -120,11 +123,13 @@ a {
 .my-post-delete-button{
   float:right;
   margin-right:20px;
-  margin-top:15px;
+  margin-top:5px;
+  font-size:15px;
 }
 .modify-button{
   float:right;
   margin-right:20px;
-  margin-top:15px;
+  margin-top:5px;
+  font-size:15px;
 }
 </style>

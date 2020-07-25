@@ -4,8 +4,8 @@
     <router-link to="AddPost" class="addpostlink">Add Post</router-link>
     <router-link to="MyPosts" class="mypostslink">My Posts</router-link>
     <router-link to="Orders" class="orderlink">My Orders</router-link>
-    <router-link to="Logout" v-if="username">Logout</router-link>
-    <router-link to="Login" v-if="!username">Login</router-link>
+    <router-link to="Logout" class="logoutlink" v-if="username">Logout</router-link>
+    <router-link to="Login" class="logoutlink" v-if="!username">Login</router-link>
     <router-view />
     <span v-if="username">Balance: {{ balance }}</span>
   <div id="sell-new-item">Sell New Item</div>
@@ -13,15 +13,15 @@
     <form enctype="multipart/form-data">
       <label for="input-title">Title: </label>
       <input type="text" id="input-title" v-model="title" placeholder="item name">
-      <br><br>
+      <br>
       <label for="input-description">Description: </label>
       <textarea type="text" id="input-description" v-model="description" placeholder
       ="description">
       </textarea>
-      <br><br>
+      <br>
       <label for="input-price">Price: </label>
       <input type="text" id="input-price" v-model="price" placeholder="price">
-      <br><br>
+      <br>
       <label for="uploadedFile">Upload Img: </label>
       <input type="file" ref="myFile" name="uploadedFile" @change.prevent="previewFile"/>
       <br><br>
@@ -166,6 +166,6 @@ a {
   font-size:25px;
 }
 input[type=text]{
-    height:20px;
+    height:30px;
   }
 </style>
