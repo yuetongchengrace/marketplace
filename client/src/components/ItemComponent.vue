@@ -35,7 +35,7 @@
         {{ post.price }}
         </div>
         <div v-if="post.sold">Sold</div>
-        <button v-if="!post.sold">Buy</button>
+        <button v-on:click="sell" v-if="!post.sold">Buy</button>
     </div>
 </div>
 
@@ -49,7 +49,6 @@ export default {
   name: 'ItemComponent',
   data() {
     return {
-      url: 'https://images.app.goo.gl/auc5K1Z6vaxC1Dj67',
       path: '',
       balance: '',
       username: '',
@@ -70,6 +69,55 @@ export default {
       return `../../../${post.picture}`;
       // const url2=post.picture
       // return require.context('../../../',true, /^{url2}$/);
+    },
+    sell() {
+      if (this.post.username === this.username) {
+        alert('You cannot buy your own product!');
+      } else {
+        this.$confirm('Are you sure?').then(() => {
+          // Update item to sold
+          console.log(this.$route.params.id);
+          const url = 'http://localhost:4000/api/posts/sell/';
+          const { id } = this.$route.params;
+          axios.post(`${url}${id}`).then((res) => {
+            console.log(res.status);
+          }).catch((err) => {
+            console.log(err);
+          });
+          // Add order in order collection
+          axios.post('http://localhost:4000/api/orders/addorder', {
+            username: this.username,
+            title: this.post.title,
+            price: this.post.price,
+            seller: this.post.username,
+          }).then((res) => {
+            console.log(res.status);
+          }).catch((err) => {
+            console.log(err);
+          });
+          // deduct Balance
+          axios.post('http://localhost:4000/api/users/deductBalance', {
+            username: this.username,
+            price: this.post.price,
+          }).then((res) => {
+            console.log(res.status);
+            this.balance = res.data.balance;
+          }).catch((err) => {
+            console.log(err);
+          });
+          // increase Balance
+          axios.post('http://localhost:4000/api/users/increaseBalance', {
+            username: this.post.username,
+            price: this.post.price,
+          }).then((res) => {
+            console.log(res.status);
+          }).catch((err) => {
+            console.log(err);
+          });
+        }).catch((err) => {
+          console.log(err);
+        });
+      }
     },
   },
   async created() {

@@ -3,7 +3,7 @@ const mongodb = require('mongodb');
 
 const router = express.Router();
 
-//Get orders
+//Get my orders
 router.post('/', async (req, res) => {
     const orders = await loadPostsCollection();
     const user= req.body.username;
@@ -11,19 +11,18 @@ router.post('/', async (req, res) => {
 });
 
 //Add order
-// router.post('/', async (req, res) => {
-//     //console.log(req.file)
-//     const orders = await loadPostsCollection();
-//     await orders.insertOne({
-//         username: req.body.username,
-//         title: req.body.title,
-//         //description: req.body.description,
-//         price: parseFloat(req.body.price),
-//         //picture:req.file.path,
-//         createdAt: new Date()
-//     })
-//     res.status(201).send();
-// })
+router.post('/addorder', async (req, res) => {
+    //console.log(req.file)
+    const orders = await loadPostsCollection();
+    await orders.insertOne({
+        username: req.body.username,
+        seller: req.body.seller,
+        title: req.body.title,
+        price: parseFloat(req.body.price),
+        createdAt: new Date()
+    })
+    res.status(201).send();
+})
 
 async function loadPostsCollection() {
     const client = await mongodb.MongoClient.connect

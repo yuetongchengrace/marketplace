@@ -51,6 +51,36 @@ router.post('/balance' ,async (req,res)=>{
     console.log(user.balance);
     res.send({'balance': user.balance});
 })
+//deduct buyer balance
+router.post('/deductBalance',async (req,res)=>{
+    const users = await loadPostsCollection();
+    const old=await users.findOne({username: req.body.username});
+    const oldBalance=old.balance;
+    const newBalance= oldBalance-req.body.price;
+    console.log(old.balance);
+    await users.update(
+        {username: req.body.username},
+        {$set: { "balance": newBalance}}
+        )
+  res.status(200).send(
+    {'balance': newBalance}
+  );
+})
+//increase seller balance
+router.post('/increaseBalance',async (req,res)=>{
+    const users = await loadPostsCollection();
+    const old=await users.findOne({username: req.body.username});
+    const oldBalance=old.balance;
+    const newBalance= oldBalance+req.body.price;
+    console.log(old.balance);
+    await users.update(
+        {username: req.body.username},
+        {$set: { "balance": newBalance}}
+        )
+  res.status(200).send(
+    {'balance': newBalance}
+  );
+})
 //getcurrentuser
 router.get('/currentUser' ,async (req,res)=>{
     res.send({'username': req.session});

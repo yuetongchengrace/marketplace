@@ -72,7 +72,6 @@ export default {
         console.log(err);
       });
     try {
-      console.log('hi');
       this.posts = await PostService.getPosts();
     } catch (err) {
       this.error = err.message;

@@ -94,8 +94,7 @@ export default {
           });
           // await PostService.insertPost(fd);
           // await PostService.insertPost(newitem);
-          console.log('added!');
-          this.username = null;
+          alert('Post added!');
           this.title = null;
           this.description = null;
           this.file = null;

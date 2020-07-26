@@ -77,6 +77,7 @@ router.delete('/:id', async (req, res) => {
 
 //Modify post
 router.post('/:id', async (req, res) => {
+  console.log(req.params.id);
   const posts = await loadPostsCollection();
   await posts.update({_id: new mongodb.ObjectID(req.params.id)},
     {username: req.body.username,
@@ -89,6 +90,17 @@ router.post('/:id', async (req, res) => {
     createdAt: new Date()
     })
   res.status(200).send(posts.findOne({_id: new mongodb.ObjectID(req.params.id)}));
+})
+
+//Sold item
+router.post('/sell/:id',async (req, res) => {
+  console.log(req);
+  const posts = await loadPostsCollection();
+  await posts.update(
+    {_id: new mongodb.ObjectID(req.params.id)},
+    {$set: { "sold": 1}}
+  )
+  res.status(200).send()
 })
 
 async function loadPostsCollection() {
