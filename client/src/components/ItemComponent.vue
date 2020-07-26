@@ -35,7 +35,7 @@
         {{ post.price }}
         </div>
         <div v-if="post.sold">Sold</div>
-        <button v-on:click="sell" v-if="!post.sold">Buy</button>
+        <button v-on:click="sell" v-if="!post.sold && username">Buy</button>
     </div>
 </div>
 

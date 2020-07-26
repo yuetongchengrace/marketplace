@@ -20,11 +20,12 @@
         v-bind:key="post._id"
       >
         <b-card class="mb-5"
+        :bg-variant="[post.sold===1 ? 'light' : '']"
         img-src="http://classes.engineering.wustl.edu/cse330/content/brookings.jpg"
         v-bind:title="post.title">
-          <b-card-text v-if="post.sold===1">sold</b-card-text>
+          <b-card-text class="mb-0" v-if="post.sold===1">sold</b-card-text>
           <b-button size="sm" v-else variant="dark" @click="navigate(post._id)">See more</b-button>
-          <b-card-text>Price:{{ post.price }}</b-card-text>
+          <b-card-text >Price:{{ post.price }}</b-card-text>
         </b-card>
         <!-- {{`${post.createdAt.getDate()}/${post.createdAt.getMonth()}/
         ${post.createdAt.getFullYear()}`}} -->

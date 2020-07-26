@@ -2,7 +2,8 @@
 <div class = "container">
   <div class="create-post">
     <p>You have successfully logged out</p>
-    <router-link to="Login">Click to login</router-link>
+    <router-link to="Login">Click to login</router-link><br>
+    <router-link to="ShowPosts">Visit site</router-link>
     <router-view />
   </div>
 </div>
