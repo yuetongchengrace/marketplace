@@ -110,6 +110,14 @@ export default {
           }).catch((err) => {
             console.log(err);
           });
+          // Delete from my cart
+          const carturl2 = 'http://localhost:4000/api/carts/delete/';
+          axios.delete(`${carturl2}${id}`, {
+          }).then((res) => {
+            console.log(res.status);
+          }).catch((err) => {
+            console.log(err);
+          });
           // Add order in order collection
           axios.post('http://localhost:4000/api/orders/addorder', {
             username: this.username,

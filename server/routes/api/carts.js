@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
 router.post('/addtocart', async (req, res) => {
     //console.log(req.file)
     const carts = await loadPostsCollection();
-    let theItem = await carts.findOne({itemid: req.body.itemid});
+    let theItem = await carts.findOne({itemid: req.body.itemid, username: req.body.username});
     if(theItem == null){
         await carts.insertOne({
             itemid: req.body.itemid,
@@ -35,6 +35,13 @@ router.post('/addtocart', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     const cart = await loadPostsCollection();
     await cart.deleteOne({itemid: String(req.params.id)})
+    res.status(200).send();
+})
+
+//Buyer delete from cart
+router.delete('/delete/:id', async (req, res) => {
+    const cart = await loadPostsCollection();
+    await cart.deleteOne({_id: new mongodb.ObjectID(req.params.id)})
     res.status(200).send();
 })
 

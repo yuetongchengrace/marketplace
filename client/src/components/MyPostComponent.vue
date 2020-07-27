@@ -31,8 +31,8 @@
       <!--<button class="modify-button">Modify</button>-->
       <b-button size="sm" class="my-post-delete-button"
       @click="deletePost(post._id)">Delete</b-button>
-      <span v-if="!post.sold">Not sold yet</span>
-      <span v-if="post.sold">sold</span>
+      <span class="sold" v-if="!post.sold">Not sold yet</span>
+      <span class="sold" v-if="post.sold">sold</span>
       <!--<button class="my-post-delete-button" v-on:click="deletePost(post._id)">Delete</button>-->
     </div>
   </div>

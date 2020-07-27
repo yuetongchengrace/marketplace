@@ -27,7 +27,7 @@
       <!-- <span class="my-post-description">description: {{ item.description }}</span> -->
       <span v-if="item.sold">sold</span>
       <b-button size="sm" class="my-post-delete-button"
-      @click="deleteitem(item.itemid)">Delete</b-button>
+      @click="deleteitem(item._id)">Delete</b-button>
       <b-button size="sm" class="my-post-delete-button"
       @click="navigate(item.itemid)" v-if="!item.sold">Buy</b-button>
     </div>
@@ -76,8 +76,10 @@ export default {
               console.log(err);
             });
             // Delete from my cart
-            const carturl = 'http://localhost:4000/api/carts/';
-            axios.delete(`${carturl}${id}`, {
+            /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
+            const id1 = item._id;
+            const carturl = 'http://localhost:4000/api/carts/delete/';
+            axios.delete(`${carturl}${id1}`, {
             }).then((res) => {
               console.log(res.status);
             }).catch((err) => {
@@ -133,7 +135,15 @@ export default {
     async deleteitem(id) {
       console.log(id);
       try {
-        CartService.deleteitem(id);
+        // Delete from my cart
+        const carturl = 'http://localhost:4000/api/carts/delete/';
+        axios.delete(`${carturl}${id}`, {
+        }).then((res) => {
+          console.log(res.status);
+        }).catch((err) => {
+          console.log(err);
+        });
+        console.log('here');
         const obj2 = { username: this.username };
         this.cart = await CartService.getMyCart(obj2);
         this.cartArr = await CartService.getMyCart(obj2);
