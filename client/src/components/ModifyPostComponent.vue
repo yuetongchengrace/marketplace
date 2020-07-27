@@ -1,6 +1,7 @@
 <template>
 <div class = "container">
     <router-view />
+    <span v-if="username" class="user">User: {{ username }}</span>
     <span v-if="username">Balance: {{ balance }}</span>
   <div id="sell-new-item">Modify this item</div>
   <div class="create-post" id="add-post">

@@ -8,6 +8,7 @@
     <router-link to="Logout" class="logoutlink" v-if="username">Logout</router-link>
     <router-link to="Login" class="logoutlink" v-if="!username">Login</router-link>
     <router-view />
+    <span v-if="username" class="user">User: {{ username }}</span>
     <span v-if="username">Balance: {{ balance }}</span>
   <h1>My Cart</h1>
   <!--Create Posts here-->
@@ -55,14 +56,19 @@ export default {
   },
   methods: {
     async buyall() {
-      let check = 0;
+      let checkSold = 0;
+      let money = 0;
       this.cartArr.forEach((item) => {
         if (item.sold === 1) {
-          check = 1;
+          checkSold = 1;
+        } else {
+          money += item.price;
         }
       });
-      if (check === 1) {
-        alert('Please clear out the sold items first');
+      if (checkSold === 1) {
+        this.$alert('Please clear out the sold items first');
+      } else if (this.balance < money) {
+        this.$alert('You do not have enough balance');
       } else {
         this.$confirm('Are you sure?').then(() => {
           this.cartArr.forEach((item) => {
@@ -116,6 +122,7 @@ export default {
               console.log(err);
             });
           });
+          this.$alert('Payment Successful!');
         }).catch((err) => {
           console.log(err);
         });

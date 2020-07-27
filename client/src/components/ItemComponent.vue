@@ -8,6 +8,7 @@
     <router-link to="Logout" class="logoutlink" v-if="username">Logout</router-link>
     <router-link to="Login" class="logoutlink" v-if="!username">Login</router-link>
     <router-view />
+    <span v-if="username" class="user">User: {{ username }}</span>
     <span v-if="username">Balance: {{ balance }}</span>
   <h1>{{post.title}}</h1>
   <!--Create Posts here-->
@@ -148,6 +149,7 @@ export default {
           }).catch((err) => {
             console.log(err);
           });
+          this.$alert('Payment Successful!');
         }).catch((err) => {
           console.log(err);
         });

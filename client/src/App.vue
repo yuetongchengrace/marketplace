@@ -33,4 +33,8 @@ export default {
 .addpostlink, .showallpostslink, .mypostslink, .orderlink, .logoutlink, .mycartlink{
   margin-right:10px;
 }
+.user{
+  margin-left:10px;
+  margin-right:10px;
+}
 </style>

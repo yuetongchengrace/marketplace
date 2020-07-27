@@ -8,6 +8,7 @@
     <router-link to="Logout" class="logoutlink" v-if="username">Logout</router-link>
     <router-link to="Login" class="logoutlink" v-if="!username">Login</router-link>
     <router-view />
+    <span v-if="username" class="user">User: {{ username }}</span>
     <span v-if="username">Balance: {{ balance }}</span>
   <div id="sell-new-item">Sell New Item</div>
   <div class="create-post" id="add-post">
