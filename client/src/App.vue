@@ -30,7 +30,7 @@ export default {
   margin-top:20px;
   font-size:20px;
 }
-.addpostlink, .showallpostslink, .mypostslink, .orderlink, .logoutlink{
+.addpostlink, .showallpostslink, .mypostslink, .orderlink, .logoutlink, .mycartlink{
   margin-right:10px;
 }
 </style>

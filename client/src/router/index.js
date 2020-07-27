@@ -9,6 +9,7 @@ import MyPostComponent from '@/components/MyPostComponent.vue';
 import LogoutComponent from '@/components/LogoutComponent.vue';
 import ItemComponent from '@/components/ItemComponent.vue';
 import ModifyPostComponent from '@/components/ModifyPostComponent.vue';
+import MyCartComponent from '@/components/MyCartComponent.vue';
 
 Vue.use(Router);
 
@@ -27,6 +28,11 @@ export default new Router({
       path: '/myposts',
       name: 'MyPosts',
       component: MyPostComponent,
+    },
+    {
+      path: '/mycart',
+      name: 'MyCart',
+      component: MyCartComponent,
     },
     {
       path: '/addpost',

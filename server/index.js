@@ -9,10 +9,12 @@ app.use(express.urlencoded());
 app.use(cors());
 
 const posts = require('./routes/api/posts');
+const carts = require('./routes/api/carts');
 const users = require('./routes/api/users');
 const orders = require('./routes/api/orders');
 
 app.use('/api/posts', posts);
+app.use('/api/carts', carts);
 app.use('/api/posts/:id', posts);
 app.use('/api/users', users);
 app.use('/api/orders', orders);

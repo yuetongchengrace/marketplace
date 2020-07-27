@@ -31,10 +31,11 @@ import axios from 'axios';
 import PostService from '../PostService';
 
 export default {
-  name: 'AddPostComponent',
+  name: 'ModifyPostComponent',
   data() {
     return {
       post: '',
+      seller: '',
       balance: '',
       username: '',
       error: '',
@@ -63,6 +64,7 @@ export default {
           title: this.title,
           description: this.description,
           price: this.price,
+          seller: this.seller,
           // picture:req.file.path,
           // picture: req.body.picture,
         };
@@ -94,6 +96,7 @@ export default {
     this.title = this.post.title;
     this.description = this.post.description;
     this.price = this.post.price;
+    this.seller = this.post.username;
   },
 
 };

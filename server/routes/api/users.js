@@ -93,14 +93,20 @@ router.post('/register', async (req, res) => {
     //     balance:100
     // }
     const users = await loadPostsCollection();
-    //const hash=bcrypt.hash(req.body.password,10);
-    //userData.password=hash
-    await users.insertOne({
-        username:req.body.username,
-        password:bcrypt.hashSync(req.body.password,10),
-        balance:100
-    });
-    res.status(201).send();
+    let theUser = await users.findOne({username: req.body.username});
+    if(theUser != null){
+        res.status(404).send();
+    }
+    else{
+        //const hash=bcrypt.hash(req.body.password,10);
+        //userData.password=hash
+        await users.insertOne({
+            username:req.body.username,
+            password:bcrypt.hashSync(req.body.password,10),
+            balance:100
+        });
+        res.status(201).send();
+    }
 })
 
 async function loadPostsCollection() {

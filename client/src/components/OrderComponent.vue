@@ -4,6 +4,7 @@
     <router-link to="AddPost" class="addpostlink">Add Post</router-link>
     <router-link to="MyPosts" class="mypostslink">My Posts</router-link>
     <router-link to="Orders" class="orderlink">My Orders</router-link>
+    <router-link to="MyCart" class="mycartlink" v-if="username">My Cart</router-link>
     <router-link to="Logout" class="logoutlink" v-if="username">Logout</router-link>
     <router-link to="Login" class="logoutlink" v-if="!username">Login</router-link>
     <router-view />

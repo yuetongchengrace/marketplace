@@ -4,6 +4,7 @@
     <router-link to="AddPost" class="addpostlink">Add Post</router-link>
     <router-link to="MyPosts" class="mypostslink">My Posts</router-link>
     <router-link to="Orders" class="orderlink">My Orders</router-link>
+    <router-link to="MyCart" class="mycartlink" v-if="username">My Cart</router-link>
     <router-link to="Logout" class="logoutlink" v-if="username">Logout</router-link>
     <router-link to="Login" class="logoutlink" v-if="!username">Login</router-link>
     <router-view />
@@ -64,7 +65,11 @@ export default {
     async createPost() {
       if (this.username == null || this.title == null
       || this.description == null || this.file == null) {
-        alert('Please input all necessary informations!');
+        if (this.username == null) {
+          this.$alert('You need to login first!');
+        } else {
+          this.$alert('Please input all necessary informations!');
+        }
       } else {
         try {
           // this.username = localStorage.getItem('currentUser');
@@ -94,7 +99,7 @@ export default {
           });
           // await PostService.insertPost(fd);
           // await PostService.insertPost(newitem);
-          alert('Post added!');
+          this.$alert('Post added!');
           this.title = null;
           this.description = null;
           this.file = null;
@@ -155,12 +160,12 @@ a {
 #add-post{
   margin-top:30px;
   border: 1px solid #2c3e50;
-  width: 450px;
+  width: 410px;
   margin-left: auto;
   margin-right: auto;
   padding-top:2%;
   padding-bottom:2%;
-  padding-left:5%;
+  padding-left:6%;
   text-align:left;
   font-size:25px;
 }

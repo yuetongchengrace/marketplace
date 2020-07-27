@@ -91,11 +91,21 @@ class PostService {
 
   // Modify Post
   static modifyPost(id, obj) {
-    return axios.post(`${url}${id}`, {
+    axios.post(`${url}${id}`, {
       username: obj.username,
       title: obj.title,
       description: obj.description,
       price: obj.price,
+      // picture:req.file.path,
+      // picture: req.body.picture,
+    });
+    const url2 = 'http://localhost:4000/api/carts/';
+    axios.post(`${url2}${id}`, {
+      username: obj.username,
+      itemid: id,
+      title: obj.title,
+      price: obj.price,
+      seller: obj.seller,
       // picture:req.file.path,
       // picture: req.body.picture,
     });

@@ -4,6 +4,7 @@
     <router-link to="AddPost" class="addpostlink">Add Post</router-link>
     <router-link to="MyPosts" class="mypostslink">My Posts</router-link>
     <router-link to="Orders" class="orderlink">My Orders</router-link>
+    <router-link to="MyCart" class="mycartlink" v-if="username">My Cart</router-link>
     <router-link to="Logout" class="logoutlink" v-if="username">Logout</router-link>
     <router-link to="Login" class="logoutlink" v-if="!username">Login</router-link>
     <router-view />
@@ -25,13 +26,13 @@
       <span>: </span>
       <span>title: {{ post.title }}</span>
       <span class="my-post-description">description: {{ post.description }}</span>
-      <span v-if="!post.sold">Not sold yet</span>
-      <span v-if="post.sold">sold</span>
       <b-button size="sm"  class="modify-button"
       @click="modify(post._id)">Modify</b-button>
       <!--<button class="modify-button">Modify</button>-->
       <b-button size="sm" class="my-post-delete-button"
       @click="deletePost(post._id)">Delete</b-button>
+      <span v-if="!post.sold">Not sold yet</span>
+      <span v-if="post.sold">sold</span>
       <!--<button class="my-post-delete-button" v-on:click="deletePost(post._id)">Delete</button>-->
     </div>
   </div>
@@ -42,6 +43,7 @@
 <script>
 import axios from 'axios';
 import PostService from '../PostService';
+import CartService from '../CartService';
 
 export default {
   name: 'MyPostComponent',
@@ -63,6 +65,7 @@ export default {
       console.log(id);
       try {
         await PostService.deletePost(id);
+        await CartService.deleteitem(id);
         const obj2 = { username: this.username };
         this.posts = await PostService.getMyPosts(obj2);
       } catch (err) {
@@ -135,5 +138,9 @@ a {
   margin-right:20px;
   margin-top:5px;
   font-size:15px;
+}
+.sold{
+  float:right;
+  margin-right:20px;
 }
 </style>

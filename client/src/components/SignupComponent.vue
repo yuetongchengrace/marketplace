@@ -31,17 +31,20 @@ export default {
   methods: {
     signup() {
       if (this.username === '' || this.password === '') {
-        alert('Please type in both username and password');
+        this.$alert('Please type in both username and password');
       } else {
         axios.post('http://localhost:4000/api/users/register', {
           username: this.username,
           password: this.password,
         }).then((res) => {
           console.log(res);
+          this.username = '';
+          this.password = '';
           window.location.href = 'http://localhost:8080/#/login';
         })
           .catch((err) => {
             console.log(err);
+            this.$alert('The username already exist, please use another one');
           });
       }
     },

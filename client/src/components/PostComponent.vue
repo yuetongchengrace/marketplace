@@ -4,6 +4,7 @@
     <router-link to="AddPost" class="addpostlink">Add Post</router-link>
     <router-link to="MyPosts" class="mypostslink">My Posts</router-link>
     <router-link to="Orders" class="orderlink">My Orders</router-link>
+    <router-link to="MyCart" class="mycartlink" v-if="username">My Cart</router-link>
     <router-link to="Logout" class="logoutlink" v-if="username">Logout</router-link>
     <router-link to="Login" class="logoutlink" v-if="!username">Login</router-link>
     <router-view />
@@ -20,8 +21,8 @@
         v-bind:key="post._id"
       >
         <b-card class="mb-5"
-        :bg-variant="[post.sold===1 ? 'light' : '']"
-        img-src="http://classes.engineering.wustl.edu/cse330/content/brookings.jpg"
+        v-bind:style="[post.sold ? {'background':'#e8e8e8'} : {'background':'white'}]"
+        :img-src="(/uploads[/].+/).exec(post.picture)[0]"
         v-bind:title="post.title">
           <b-card-text class="mb-0" v-if="post.sold===1">sold</b-card-text>
           <b-button size="sm" v-else variant="dark" @click="navigate(post._id)">See more</b-button>
@@ -96,5 +97,8 @@ li {
 }
 a {
   color: #42b983;
+}
+img{
+  height:150px;
 }
 </style>
