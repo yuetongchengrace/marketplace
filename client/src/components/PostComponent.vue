@@ -13,10 +13,13 @@
   <h1>All Items</h1>
   <hr>
   <p class="error" v-if="error">{{error}}</p >
+  <div class="search-wrapper">
+    <input type="text" v-model="search" placeholder="Search title.."/>
+  </div>
   <b-container>
     <b-row >
       <b-col class="post" md="3"
-        v-for="(post, index) in posts"
+        v-for="(post, index) in filteredList"
         v-bind:item="post"
         v-bind:index="index"
         v-bind:key="post._id"
@@ -47,6 +50,7 @@ export default {
   name: 'PostComponent',
   data() {
     return {
+      search: '',
       balance: '',
       username: '',
       posts: [],
@@ -80,6 +84,12 @@ export default {
       this.error = err.message;
     }
   },
+  computed: {
+    filteredList() {
+      return this.posts.filter((post) => post.title
+        .toLowerCase().includes(this.search.toLowerCase()));
+    },
+  },
 };
 </script>
 
@@ -101,5 +111,8 @@ a {
 }
 img{
   height:150px;
+}
+.search-wrapper{
+  margin-bottom:50px;
 }
 </style>

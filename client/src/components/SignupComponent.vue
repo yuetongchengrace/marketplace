@@ -40,6 +40,7 @@ export default {
           console.log(res);
           this.username = '';
           this.password = '';
+          this.$alert('Successfully signed up, login now!');
           window.location.href = 'http://localhost:8080/#/login';
         })
           .catch((err) => {
