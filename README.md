@@ -31,3 +31,11 @@
 
 **TA: Julia Dickerman**
 
+
+**Reference: **
+
+Youtube: Full Stack Vue.js, Express & MongoDB
+Code: https://github.com/bradtraversy/microposts_fullstack_vue
+
+Youtube: https://www.youtube.com/watch?v=srPXMt1Q0nY
+
