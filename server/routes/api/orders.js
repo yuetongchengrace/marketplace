@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/', async (req, res) => {
     const orders = await loadPostsCollection();
     const user= req.body.username;
-    res.send(await orders.find({username: user}).toArray());
+    res.send(await orders.find({username: user}).sort( { createdAt: -1 } ).toArray());
 });
 
 //Add order

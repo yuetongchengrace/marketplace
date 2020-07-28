@@ -33,7 +33,7 @@ const storage = multer.diskStorage({
 router.get('/', async (req, res) => {
     const posts = await loadPostsCollection();
     //res.send(req.session);
-    res.send(await posts.find({}).toArray());
+    res.send(await posts.find({}).sort( { createdAt: -1 } ).toArray());
 });
 
 //Get one post

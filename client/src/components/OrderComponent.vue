@@ -28,6 +28,10 @@
         <div class="item">Item: {{ order.title }}</div>
         <div>Seller: {{ order.seller}} </div>
         <div>Price: {{ order.price }}</div>
+        <div>
+          <span>Date place: </span>
+          <span class="time">{{ getSubstring(order.createdAt) }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -54,6 +58,9 @@ export default {
     getUser() {
       this.username = localStorage.getItem('currentUser');
       console.log(localStorage.getItem('currentUser'));
+    },
+    getSubstring(string) {
+      return string.toString().substring(0, 24);
     },
     view(id) {
       const url = `http://localhost:8080/#/${id}`;
@@ -104,7 +111,7 @@ a {
   margin-left:auto;
   margin-right:auto;
   height:1000px;
-  width:550px;
+  width:650px;
 }
 .post{
   width:100%;
@@ -113,21 +120,24 @@ a {
 .left{
   width:45%;
   float:left;
-  height:200px;
+  height:220px;
 }
 img{
   width:100%;
-  height:180px;
+  height:200px;
 }
 .right{
-  padding-top:5px;
   margin-left:30px;
   width:45%;
   float:left;
-  height:200px;
+  height:220px;
 }
 .item{
+  padding-top:5px;
   font-weight:bold;
   font-size:30px;
+}
+.time{
+  font-size:15px;
 }
 </style>
