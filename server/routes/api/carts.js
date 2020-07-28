@@ -59,19 +59,24 @@ router.delete('/:id', async (req, res) => {
 router.post('/:id', async (req, res) => {
     console.log(req.params.id);
     const carts = await loadPostsCollection();
-    let theItem = await carts.findOne({itemid: req.params.id});
-    let theUser = theItem.username;
-    await carts.update({itemid: req.params.id},
-      {
-        username: theUser,
-        seller: req.body.seller,
-        itemid: req.body.itemid,
-        title: req.body.title,
-        price: parseFloat(req.body.price),
-        //picture:req.file.path,
-        picture: req.body.picture,
-        sold: 0,
-      })
+    // let theItem = await carts.findOne({itemid: req.params.id});
+    // let theUser = theItem.username;
+    await carts.updateMany({itemid: req.params.id},{$set: 
+        {
+            title: req.body.title,
+            price: parseFloat(req.body.price),
+        }
+    })
+    //   {
+    //     username: theUser,
+    //     seller: req.body.seller,
+    //     itemid: req.body.itemid,
+    //     title: req.body.title,
+    //     price: parseFloat(req.body.price),
+    //     //picture:req.file.path,
+    //     picture: req.body.picture,
+    //     sold: 0,
+    //   })
     res.status(200).send();
 })
 
