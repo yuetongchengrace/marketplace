@@ -36,6 +36,7 @@
 
 <script>
 import axios from 'axios';
+/* eslint-disable */
 // import PostService from '../PostService';
 
 export default {
@@ -104,6 +105,7 @@ export default {
           this.title = null;
           this.description = null;
           this.file = null;
+          this.$refs.myFile.value = null;
           this.price = null;
         } catch (err) {
           this.error = err.message;

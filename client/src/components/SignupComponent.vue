@@ -18,6 +18,7 @@
 <script>
 // import UserService from '../UserService';
 import axios from 'axios';
+/* eslint-disable */
 
 export default {
   name: 'SignupComponent',

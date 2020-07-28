@@ -45,6 +45,7 @@
 <script>
 import axios from 'axios';
 import PostService from '../PostService';
+/* eslint-disable */
 
 export default {
   name: 'PostComponent',

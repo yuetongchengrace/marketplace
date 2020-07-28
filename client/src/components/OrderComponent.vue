@@ -42,6 +42,7 @@
 <script>
 import axios from 'axios';
 import OrderService from '../OrderService';
+/* eslint-disable */
 
 export default {
   name: 'OrderComponent',

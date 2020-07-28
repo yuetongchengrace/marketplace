@@ -30,6 +30,7 @@
 <script>
 import axios from 'axios';
 import PostService from '../PostService';
+/* eslint-disable */
 
 export default {
   name: 'ModifyPostComponent',
@@ -76,7 +77,8 @@ export default {
         this.picture = null;
         this.price = null;
         await PostService.modifyPost(this.$route.params.id, obj);
-        this.$router.push({ name: 'MyPosts' });
+        setTimeout(() => this.$router.push({ name: 'MyPosts' }), 500);
+        // this.$router.push({ name: 'MyPosts' });
         // window.location.href = 'http://localhost:8080/#/MyPosts/';
       } catch (err) {
         this.error = err.message;

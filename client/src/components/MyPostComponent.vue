@@ -49,6 +49,7 @@
 import axios from 'axios';
 import PostService from '../PostService';
 import CartService from '../CartService';
+/* eslint-disable */
 
 export default {
   name: 'MyPostComponent',
@@ -79,6 +80,7 @@ export default {
       try {
         await PostService.deletePost(id);
         await CartService.deleteitem(id);
+        this.$alert('post deleted!');
         const obj2 = { username: this.username };
         this.posts = await PostService.getMyPosts(obj2);
       } catch (err) {

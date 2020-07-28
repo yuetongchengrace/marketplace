@@ -36,6 +36,7 @@
     </div>
   </div>
   <b-button size="lg" id="buyall" @click="buyall()" v-if="cartArr.length">Buy All</b-button>
+  <div v-if="cartArr.length" id="double-click">Double click button to delete an item from cart</div>
 </div>
 
 </template>
@@ -43,6 +44,7 @@
 <script>
 import axios from 'axios';
 import CartService from '../CartService';
+/* eslint-disable */
 
 export default {
   name: 'MyCartComponent',
@@ -174,9 +176,11 @@ export default {
           console.log(err);
         });
         console.log('here');
+        // setTimeout(() => this.$router.push({ name: 'MyCart' }), 2000);
+        // this.$router.push({ name: 'MyCart' }), 500)
         const obj2 = { username: this.username };
-        this.cart = CartService.getMyCart(obj2);
-        this.cartArr = CartService.getMyCart(obj2);
+        this.cart = await CartService.getMyCart(obj2);
+        this.cartArr = await CartService.getMyCart(obj2);
       } catch (err) {
         this.error = err.message;
       }
@@ -257,5 +261,10 @@ a {
 }
 #buyall{
   margin-top:30px;
+}
+#double-click{
+  margin-top:30px;
+  color:red;
+  font-size:18px;
 }
 </style>
