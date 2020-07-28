@@ -156,6 +156,7 @@ export default {
             console.log(err);
           });
           this.$alert('Payment Successful!');
+           window.location.href = 'http://localhost:8080/#/Orders';
         }).catch((err) => {
           console.log(err);
         });
