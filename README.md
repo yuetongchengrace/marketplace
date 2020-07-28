@@ -32,7 +32,7 @@
 **TA: Julia Dickerman**
 
 
-**Reference: **
+**Reference:**
 
 Youtube: Full Stack Vue.js, Express & MongoDB
 Code: https://github.com/bradtraversy/microposts_fullstack_vue
