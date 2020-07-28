@@ -43,7 +43,7 @@ export default {
       title: '',
       description: '',
       price: null,
-      file: null,
+      picture: '',
     };
   },
   methods: {
@@ -66,17 +66,18 @@ export default {
           description: this.description,
           price: this.price,
           seller: this.seller,
-          // picture:req.file.path,
+          picture: this.picture,
           // picture: req.body.picture,
         };
         console.log(obj);
         this.username = null;
         this.title = null;
         this.description = null;
-        this.file = null;
+        this.picture = null;
         this.price = null;
         await PostService.modifyPost(this.$route.params.id, obj);
-        window.location.href = 'http://localhost:8080/#/MyPosts/';
+        this.$router.push({ name: 'MyPosts' });
+        // window.location.href = 'http://localhost:8080/#/MyPosts/';
       } catch (err) {
         this.error = err.message;
         console.log(err.message);
@@ -98,6 +99,7 @@ export default {
     this.description = this.post.description;
     this.price = this.post.price;
     this.seller = this.post.username;
+    this.picture = this.post.picture;
   },
 
 };

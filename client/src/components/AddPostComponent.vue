@@ -161,7 +161,7 @@ a {
 #add-post{
   margin-top:30px;
   border: 1px solid #2c3e50;
-  width: 410px;
+  width: 450px;
   margin-left: auto;
   margin-right: auto;
   padding-top:2%;

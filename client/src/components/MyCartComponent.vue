@@ -23,12 +23,14 @@
     >
       <span>{{index+1}}</span>
       <span>: </span>
-      <span>{{ item.title }}</span>
-      <span>{{ item.price }}</span>
+      <span class="title">Item: {{ item.title }}</span>
+      <span class="price">Price: {{ item.price }}</span>
       <!-- <span class="my-post-description">description: {{ item.description }}</span> -->
-      <span v-if="item.sold">sold</span>
       <b-button size="sm" class="my-post-delete-button"
       @click="deleteitem(item._id)">Delete</b-button>
+      <b-button size="sm" class="view-button"
+      @click="view(item.itemid)">View</b-button>
+      <span class="sold" v-if="item.sold">sold</span>
       <b-button size="sm" class="my-post-delete-button"
       @click="navigate(item.itemid)" v-if="!item.sold">Buy</b-button>
     </div>
@@ -55,6 +57,9 @@ export default {
     };
   },
   methods: {
+    view(id) {
+      this.$router.push({ name: 'Item', params: { id } });
+    },
     async buyall() {
       let checkSold = 0;
       let money = 0;
@@ -81,6 +86,14 @@ export default {
             }).catch((err) => {
               console.log(err);
             });
+            // Update my cart sold (0->1)
+            const carturl2 = 'http://localhost:4000/api/carts/sell/';
+            axios.post(`${carturl2}${id}`, {
+            }).then((res) => {
+              console.log(res.status);
+            }).catch((err) => {
+              console.log(err);
+            });
             // Delete from my cart
             /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
             const id1 = item._id;
@@ -97,6 +110,8 @@ export default {
               title: item.title,
               price: item.price,
               seller: item.seller,
+              picture: item.picture,
+              itemid: item.itemid,
             }).then((res) => {
               console.log(res.status);
             }).catch((err) => {
@@ -123,12 +138,16 @@ export default {
             });
           });
           this.$alert('Payment Successful!');
+          // const obj2 = { username: this.username };
+          // this.cart = await CartService.getMyCart(obj2);
+          // this.cartArr = await CartService.getMyCart(obj2);
+          window.location.href = 'http://localhost:8080/#/Orders';
         }).catch((err) => {
           console.log(err);
         });
-        const obj2 = { username: this.username };
-        this.cart = await CartService.getMyCart(obj2);
-        this.cartArr = await CartService.getMyCart(obj2);
+        // const obj2 = { username: this.username };
+        // this.cart = await CartService.getMyCart(obj2);
+        // this.cartArr = await CartService.getMyCart(obj2);
       }
     },
     navigate(id) {
@@ -152,8 +171,8 @@ export default {
         });
         console.log('here');
         const obj2 = { username: this.username };
-        this.cart = await CartService.getMyCart(obj2);
-        this.cartArr = await CartService.getMyCart(obj2);
+        this.cart = CartService.getMyCart(obj2);
+        this.cartArr = CartService.getMyCart(obj2);
       } catch (err) {
         this.error = err.message;
       }
@@ -211,10 +230,25 @@ a {
   margin-left:50px;
   margin-right:70px;
 }
+.price{
+  margin-left:40px;
+}
+.sold{
+  float:right;
+  margin-right:40px;
+  color:red;
+  font-size:25px;
+}
+.view-button{
+  float:right;
+  margin-right:20px;
+  margin-top:10px;
+  font-size:15px;
+}
 .my-post-delete-button{
   float:right;
   margin-right:20px;
-  margin-top:5px;
+  margin-top:10px;
   font-size:15px;
 }
 </style>

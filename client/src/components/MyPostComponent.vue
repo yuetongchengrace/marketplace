@@ -25,14 +25,18 @@
       /${post.createdAt.getFullYear()}`}}-->
       <span>{{index+1}}</span>
       <span>: </span>
-      <span>title: {{ post.title }}</span>
-      <span class="my-post-description">description: {{ post.description }}</span>
-      <b-button size="sm"  class="modify-button"
+      <span class="my-post-title">title: {{ post.title }}</span>
+      <span class="my-post-price">price: {{ post.price }}</span>
+      <b-button size="sm" class="view-button"
+      @click="view(post._id)">View</b-button>
+      <b-button size="sm"  class="modify-button" v-if="!post.sold"
       @click="modify(post._id)">Modify</b-button>
+      <b-button size="sm"  class="modify-button" v-else
+      @click="showAlert()">Modify</b-button>
       <!--<button class="modify-button">Modify</button>-->
       <b-button size="sm" class="my-post-delete-button"
       @click="deletePost(post._id)">Delete</b-button>
-      <span class="sold" v-if="!post.sold">Not sold yet</span>
+      <!-- <span class="sold" v-if="!post.sold">Not sold yet</span>-->
       <span class="sold" v-if="post.sold">sold</span>
       <!--<button class="my-post-delete-button" v-on:click="deletePost(post._id)">Delete</button>-->
     </div>
@@ -58,9 +62,17 @@ export default {
     };
   },
   methods: {
+    showAlert() {
+      this.$alert('You cannot modify a sold item');
+    },
     getUser() {
       this.username = localStorage.getItem('currentUser');
       console.log(localStorage.getItem('currentUser'));
+    },
+    view(id) {
+      const url = `http://localhost:8080/#/${id}`;
+      console.log(url);
+      this.$router.push({ name: 'Item', params: { id } });
     },
     async deletePost(id) {
       console.log(id);
@@ -116,7 +128,7 @@ a {
   color: #42b983;
 }
 #my-post-container{
-  width:900px;
+  width:1000px;
   margin-left:auto;
   margin-right:auto;
   text-align:left;
@@ -124,9 +136,14 @@ a {
 .post{
   line-height:50px;
 }
-.my-post-description{
-  margin-left:50px;
-  margin-right:70px;
+.my-post-title{
+  width:50%;
+  display:inline-block;
+}
+.view-button{
+  float:right;
+  margin-top:5px;
+  margin-right:20px;
 }
 .my-post-delete-button{
   float:right;

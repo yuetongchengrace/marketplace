@@ -22,6 +22,7 @@ router.post('/addtocart', async (req, res) => {
             title: req.body.title,
             price: parseFloat(req.body.price),
             seller: req.body.seller,
+            picture: req.body.picture,
             sold: 0
         })
     }
@@ -32,9 +33,11 @@ router.post('/addtocart', async (req, res) => {
 })
 
 //Delete from cart
-router.delete('/:id', async (req, res) => {
+router.post('/deleteCart/:id', async (req, res) => {
+    console.log(req.body.username);
     const cart = await loadPostsCollection();
-    await cart.deleteOne({itemid: String(req.params.id)})
+    console.log({itemid: req.params.id, username: req.body.username});
+    await cart.deleteOne({itemid: req.params.id, username: req.body.username});
     res.status(200).send();
 })
 
@@ -42,6 +45,13 @@ router.delete('/:id', async (req, res) => {
 router.delete('/delete/:id', async (req, res) => {
     const cart = await loadPostsCollection();
     await cart.deleteOne({_id: new mongodb.ObjectID(req.params.id)})
+    res.status(200).send();
+})
+
+//Seller delete post
+router.delete('/:id', async (req, res) => {
+    const cart = await loadPostsCollection();
+    await cart.deleteMany({itemid: req.params.id})
     res.status(200).send();
 })
 
@@ -59,7 +69,7 @@ router.post('/:id', async (req, res) => {
         title: req.body.title,
         price: parseFloat(req.body.price),
         //picture:req.file.path,
-        //picture: req.body.picture,
+        picture: req.body.picture,
         sold: 0,
       })
     res.status(200).send();
@@ -67,11 +77,11 @@ router.post('/:id', async (req, res) => {
 
 //Sold item in cart
 router.post('/sell/:id',async (req, res) => {
-    console.log(req);
     const posts = await loadPostsCollection();
     await posts.update(
       {itemid: req.params.id},
-      {$set: { "sold": 1}}
+      {$set: { "sold": 1}},
+      {multi: true}
     )
     res.status(200).send()
   })

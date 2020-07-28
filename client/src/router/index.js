@@ -66,6 +66,7 @@ export default new Router({
     },
     {
       path: '/:id',
+      name: 'Item',
       component: ItemComponent,
     },
     {

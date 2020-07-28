@@ -15,10 +15,12 @@ router.post('/addorder', async (req, res) => {
     //console.log(req.file)
     const orders = await loadPostsCollection();
     await orders.insertOne({
+        itemid: req.body.itemid,
         username: req.body.username,
         seller: req.body.seller,
         title: req.body.title,
         price: parseFloat(req.body.price),
+        picture: req.body.picture,
         createdAt: new Date()
     })
     res.status(201).send();

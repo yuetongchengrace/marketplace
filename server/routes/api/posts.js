@@ -84,8 +84,7 @@ router.post('/:id', async (req, res) => {
     title: req.body.title,
     description: req.body.description,
     price: parseFloat(req.body.price),
-    //picture:req.file.path,
-    //picture: req.body.picture,
+    picture: req.body.picture,
     sold: 0,
     createdAt: new Date()
     })

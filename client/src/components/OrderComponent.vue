@@ -14,7 +14,7 @@
   <!--Create Posts here-->
   <hr>
   <p class="error" v-if="error">{{error}}</p>
-  <div class="posts-container">
+  <div class="posts-container" id="my-order-container">
     <div class="post"
       v-for="(order, index) in orders"
       v-bind:item="order"
@@ -23,7 +23,12 @@
     >
       <!-- {{`${order.createdAt.getDate()}/${order.createdAt.getMonth()}/
       ${order.createdAt.getFullYear()}`}} -->
-      <p class="text">{{ order.title }}</p>
+      <div class="left"><img :src="(/uploads[/].+/).exec(order.picture)[0]"></div>
+      <div class="right">
+        <div class="item">Item: {{ order.title }}</div>
+        <div>Seller: {{ order.seller}} </div>
+        <div>Price: {{ order.price }}</div>
+      </div>
     </div>
   </div>
 </div>
@@ -49,6 +54,11 @@ export default {
     getUser() {
       this.username = localStorage.getItem('currentUser');
       console.log(localStorage.getItem('currentUser'));
+    },
+    view(id) {
+      const url = `http://localhost:8080/#/${id}`;
+      console.log(url);
+      this.$router.push({ name: 'Item', params: { id } });
     },
   },
   async created() {
@@ -87,5 +97,37 @@ li {
 }
 a {
   color: #42b983;
+}
+#my-order-container{
+  margin-top:30px;
+  text-align:left;
+  margin-left:auto;
+  margin-right:auto;
+  height:1000px;
+  width:550px;
+}
+.post{
+  width:100%;
+  height:250px;
+}
+.left{
+  width:45%;
+  float:left;
+  height:200px;
+}
+img{
+  width:100%;
+  height:180px;
+}
+.right{
+  padding-top:5px;
+  margin-left:30px;
+  width:45%;
+  float:left;
+  height:200px;
+}
+.item{
+  font-weight:bold;
+  font-size:30px;
 }
 </style>
