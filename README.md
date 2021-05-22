@@ -1,41 +1,27 @@
 # CSE330
-475337
 
-457001
+### Members
+Grace Chen <br/>
+Chenye Qi
 
-### Rubric
+**Languages/Frameworks used**
+* Vue.js frontend
+* Express backend
+* MongoDB Database
 
-**Rubric turned in on time (5 points)**
-
-**Languages/Frameworks used (30 points)**
-* 10 - Learned/Used Vue.js frontend
-* 10 - Learned/Used express backend
-* 10 - MongoDB Database
-
-**Functionality (45 points)**
-* 5 Visitor users cannot buy or sell items
-* 10 Registered users can upload their items for sale(item photo, description, title, price)
-* 5 Users can click on the item and see the full description
-* 5 Users can buy items which will add to their buying history
-* 10 Balance is updated correctly as transaction happens 
-* 5 User can delete the item after selling them
-* 5 Users can modify the item description
-
-**Best Practices (5 points)**
-* 3 Code is readable and well formatted
-* 2 All pages pass the html validator
-
-**Creative Portion (15 points)**
-1. chat
-2. cart
-
-**TA: Julia Dickerman**
-
+**Functionality**
+* Visitor users cannot buy or sell items
+* Registered users can upload their items for sale(item photo, description, title, price)
+* Users can click on the item and see the full description
+* Users can buy items which will add to their buying history
+* Balance is updated correctly as transaction happens 
+* User can delete the item after selling them
+* Users can modify the item description
+* Items can be saved into cart and bought together later
 
 **Reference:**
 
 Youtube: Full Stack Vue.js, Express & MongoDB
 Code: https://github.com/bradtraversy/microposts_fullstack_vue
-
 Youtube: https://www.youtube.com/watch?v=srPXMt1Q0nY
 
